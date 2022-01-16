@@ -1,7 +1,8 @@
-package fathian.ali.weatherapp
+package fathian.ali.weatherapp.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import fathian.ali.weatherapp.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
