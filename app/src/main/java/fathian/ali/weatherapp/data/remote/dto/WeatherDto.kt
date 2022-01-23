@@ -11,7 +11,7 @@ data class WeatherDto(
     @SerializedName("clouds") val clouds: Clouds,
     @SerializedName("cod") val cod: Int,
     @SerializedName("coord") val coord: Coord,
-    @SerializedName("dt") val dt: Int,
+    @SerializedName("dt") val dt: Long,
     @SerializedName("id") val id: Int,
     @SerializedName("main") val main: Main,
     @SerializedName("name") val name: String,
@@ -24,6 +24,7 @@ data class WeatherDto(
 
 fun WeatherDto.toWeatherData(unit: Units): WeatherData {
     val unitSign = if (unit == Units.METRIC) "°C" else "°F"
+    val ownTimeZone = TimeZone.getDefault().getOffset(Date().time)
     return WeatherData(
         city = name,
         country = sys.country,
@@ -40,8 +41,14 @@ fun WeatherDto.toWeatherData(unit: Units): WeatherData {
         pressure = (main.pressure / 10).toString() + "kPa",
         visibility = (visibility / 1000).toString() + "km",
         cloudiness = clouds.all.toString() + "%",
-        sunrise = SimpleDateFormat("HH:mm", Locale.US).format(Date(sys.sunrise * 1000)),
-        sunset = SimpleDateFormat("HH:mm", Locale.US).format(Date(sys.sunset * 1000)),
+        sunrise = SimpleDateFormat(
+            "HH:mm",
+            Locale.US
+        ).format(Date((sys.sunrise + timezone) * 1000 - ownTimeZone)),
+        sunset = SimpleDateFormat(
+            "HH:mm",
+            Locale.US
+        ).format(Date((sys.sunset + timezone) * 1000 - ownTimeZone)),
         unit = unit
     )
 }
