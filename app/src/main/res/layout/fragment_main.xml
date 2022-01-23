@@ -24,6 +24,14 @@
         app:layout_constraintStart_toEndOf="@id/et_search_city"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/btn_units"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Unis"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cardview"
         android:layout_width="match_parent"

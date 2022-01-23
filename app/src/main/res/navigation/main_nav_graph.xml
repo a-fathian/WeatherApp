@@ -9,5 +9,16 @@
         android:id="@+id/mainFragment"
         android:name="fathian.ali.weatherapp.presentation.main.MainFragment"
         android:label="MainFragment"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_unitsDialog"
+            app:destination="@id/unitsDialog" />
+    </fragment>
+    <dialog
+        android:id="@+id/unitsDialog"
+        android:name="fathian.ali.weatherapp.presentation.main.UnitsDialog"
+        android:label="UnitsDialog"
+        tools:layout="@layout/dialog_units"/>
+
+
 </navigation>

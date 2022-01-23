@@ -15,6 +15,7 @@ import fathian.ali.weatherapp.databinding.FragmentMainBinding
 import fathian.ali.weatherapp.domain.entity.WeatherData
 import fathian.ali.weatherapp.domain.entity.WeatherItem
 import fathian.ali.weatherapp.presentation.BaseFragment
+import fathian.ali.weatherapp.util.safeNavigate
 import fathian.ali.weatherapp.util.showGone
 import kotlinx.coroutines.flow.collectLatest
 import java.text.SimpleDateFormat
@@ -129,6 +130,9 @@ class MainFragment : BaseFragment() {
             viewModel.getWeather(binding.etSearchCity.text.toString(),
                 preference.getString("unit", "imperial") ?: "imperial")
         }
+        binding.btnUnits.setOnClickListener {
+            safeNavigate(R.id.action_mainFragment_to_unitsDialog)
+        }
     }
 
     private val viewModel: MainViewModel by viewModels()
@@ -143,11 +147,6 @@ class MainFragment : BaseFragment() {
     ): View {
         _binding = FragmentMainBinding.inflate(LayoutInflater.from(context), container, false)
         return binding.root
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        preference.storeString("unit", "imperial")
     }
 
     override fun onDestroyView() {
