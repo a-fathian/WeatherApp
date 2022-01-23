@@ -1,9 +1,8 @@
 package fathian.ali.weatherapp.data.remote.dto
 
-
-import com.squareup.moshi.Json
+import com.google.gson.annotations.SerializedName
 
 data class Coord(
-    @Json(name = "lat") val lat: Double,
-    @Json(name = "lon") val lon: Double
+    @SerializedName("lat") val lat: Double,
+    @SerializedName("lon") val lon: Double
 )

@@ -1,9 +1,8 @@
 package fathian.ali.weatherapp.data.remote.dto
 
-
-import com.squareup.moshi.Json
+import com.google.gson.annotations.SerializedName
 
 data class Wind(
-    @Json(name = "deg") val deg: Int,
-    @Json(name = "speed") val speed: Double
+    @SerializedName("deg") val deg: Int,
+    @SerializedName("speed") val speed: Double
 )

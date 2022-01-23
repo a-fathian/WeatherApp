@@ -1,5 +1,8 @@
 package fathian.ali.weatherapp.di
 
+import android.app.Application
+import android.content.SharedPreferences
+import android.preference.PreferenceManager
 import android.util.Log
 import androidx.viewbinding.BuildConfig
 import com.squareup.moshi.Moshi
@@ -9,6 +12,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import fathian.ali.weatherapp.common.Constants
+import fathian.ali.weatherapp.data.local.DefaultPreference
+import fathian.ali.weatherapp.data.local.Preference
 import fathian.ali.weatherapp.data.remote.NetworkDataSource
 import fathian.ali.weatherapp.data.remote.NetworkDataSourceImpl
 import fathian.ali.weatherapp.data.remote.WeatherApi
@@ -68,19 +73,21 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideWeatherApi(moshi: Moshi): WeatherApi {
+    fun provideWeatherApi(client: OkHttpClient): WeatherApi {
         return Retrofit
             .Builder()
             .baseUrl(Constants.BASE_URL)
+            .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(WeatherApi::class.java)
     }
 
     @Provides
-    @Singleton
-    fun moshi(): Moshi = Moshi.Builder()
-        .add(KotlinJsonAdapterFactory())
-        .build()
+    fun provideDefaultPreference(
+        application: Application
+    ): Preference {
+        return DefaultPreference(PreferenceManager.getDefaultSharedPreferences(application))
+    }
 
 }

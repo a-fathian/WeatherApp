@@ -1,4 +1,4 @@
-package fathian.ali.weatherapp.presentation
+package fathian.ali.weatherapp.presentation.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

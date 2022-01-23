@@ -3,4 +3,7 @@
     <string name="error_occurred">Error occured</string>
     <string name="feels_like">Feels like</string>
     <string name="city_name_hint">city name</string>
+    <string name="weather_icon_url">https://openweathermap.org/img/wn/%s@2x.png</string>
+    <string name="city_country_name">%s, %s</string>
+    <string name="format_string">%s %s</string>
 </resources>

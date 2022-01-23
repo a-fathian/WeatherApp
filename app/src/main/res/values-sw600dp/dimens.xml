@@ -3,4 +3,6 @@
     <dimen name="header1">42sp</dimen>
     <dimen name="header2">21sp</dimen>
     <dimen name="icon_size">130dp</dimen>
+    <dimen name="item_icon_size">64dp</dimen>
+    <dimen name="item_size">130dp</dimen>
 </resources>

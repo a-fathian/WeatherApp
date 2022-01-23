@@ -1,11 +1,10 @@
 package fathian.ali.weatherapp.data.remote.dto
 
-
-import com.squareup.moshi.Json
+import com.google.gson.annotations.SerializedName
 
 data class Weather(
-    @Json(name = "description") val description: String,
-    @Json(name = "icon") val icon: String,
-    @Json(name = "id") val id: Int,
-    @Json(name = "main") val main: String
+    @SerializedName("description") val description: String,
+    @SerializedName("icon") val icon: String,
+    @SerializedName("id") val id: Int,
+    @SerializedName("main") val main: String
 )
