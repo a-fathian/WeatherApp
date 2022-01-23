@@ -5,16 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:actionBarSize"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/app_name"
+        android:background="@color/purple_700"
+        app:titleTextColor="@color/white"
+        />
+
     <EditText
         android:id="@+id/et_search_city"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/city_name_hint"
-        android:imeOptions="actionSend"
+        android:imeOptions="actionGo"
         android:inputType="text"
         android:maxLines="1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
     <Button
         android:id="@+id/btn_search"
@@ -22,7 +32,7 @@
         android:layout_height="wrap_content"
         android:text="Go"
         app:layout_constraintStart_toEndOf="@id/et_search_city"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/et_search_city" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardview"
@@ -54,15 +64,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:ellipsize="end"
-                android:maxWidth="350dp"
+                android:maxWidth="@dimen/cite_name_length"
                 android:maxLines="1"
                 android:textSize="@dimen/header1"
-
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/iv_weather_icon"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="San Fransisco a jsdfh sj" />
+                tools:text="San Fransisco dfg dfg dfg dfg df gdf " />
 
             <TextView
                 android:id="@+id/tv_temperature"

@@ -8,11 +8,11 @@ class GetWeatherUseCaseImpl(
     private val repository: WeatherRepository,
 ) : GetWeatherUseCase {
 
-    override suspend fun invoke(city: String, units: String): Either<WeatherData, String?> {
-        return repository.getWeather(city, units)
+    override suspend fun invoke(city: String): Either<WeatherData, String?> {
+        return repository.getWeather(city)
     }
 }
 
 interface GetWeatherUseCase {
-    suspend operator fun invoke(city: String, units: String): Either<WeatherData, String?>
+    suspend operator fun invoke(city: String): Either<WeatherData, String?>
 }

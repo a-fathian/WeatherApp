@@ -15,8 +15,8 @@ class DefaultPreference @Inject constructor(
         sharedPreferences.edit().putString(key, value).apply()
     }
 
-    override fun getString(key: String, default: String?): String? {
-        return sharedPreferences.getString(key, default)
+    override fun getString(key: String): String {
+        return sharedPreferences.getString(key, Units.METRIC.name)!!
     }
 
     override fun remove(key: String) {

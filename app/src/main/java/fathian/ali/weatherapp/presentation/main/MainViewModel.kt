@@ -28,10 +28,10 @@ class MainViewModel @Inject constructor(
     private val _error = MutableSharedFlow<String>()
     val error = _error.asSharedFlow()
 
-    fun getWeather(city: String, units: String) {
+    fun getWeather(city: String) {
         viewModelScope.launch(Dispatchers.IO) {
             _loading.value = true
-            val result = getWeatherUseCase(city, units)
+            val result = getWeatherUseCase(city)
             _loading.value = false
             when (result) {
                 is Either.Success -> {

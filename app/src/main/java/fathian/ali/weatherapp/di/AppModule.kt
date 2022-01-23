@@ -1,12 +1,9 @@
 package fathian.ali.weatherapp.di
 
 import android.app.Application
-import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import android.util.Log
 import androidx.viewbinding.BuildConfig
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,13 +16,11 @@ import fathian.ali.weatherapp.data.remote.NetworkDataSourceImpl
 import fathian.ali.weatherapp.data.remote.WeatherApi
 import fathian.ali.weatherapp.data.repository.WeatherRepositoryImpl
 import fathian.ali.weatherapp.domain.repository.WeatherRepository
-import fathian.ali.weatherapp.domain.use_case.GetWeatherUseCase
-import fathian.ali.weatherapp.domain.use_case.GetWeatherUseCaseImpl
+import fathian.ali.weatherapp.domain.use_case.*
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -36,11 +31,6 @@ object AppModule {
     @Provides
     fun provideWeatherRepository(repository: WeatherRepositoryImpl): WeatherRepository {
         return repository
-    }
-
-    @Provides
-    fun provideGetWeatherUseCase(repository: WeatherRepository): GetWeatherUseCase {
-        return GetWeatherUseCaseImpl(repository)
     }
 
     @Provides
@@ -88,6 +78,21 @@ object AppModule {
         application: Application
     ): Preference {
         return DefaultPreference(PreferenceManager.getDefaultSharedPreferences(application))
+    }
+
+    @Provides
+    fun provideGetWeatherUseCase(repository: WeatherRepository): GetWeatherUseCase {
+        return GetWeatherUseCaseImpl(repository)
+    }
+
+    @Provides
+    fun provideGetUnitUseCase(repository: WeatherRepository): GetUnitUseCase {
+        return GetUnitUseCaseImpl(repository)
+    }
+
+    @Provides
+    fun provideSetUnitUseCase(repository: WeatherRepository): SetUnitUseCase {
+        return SetUnitUseCaseImpl(repository)
     }
 
 }

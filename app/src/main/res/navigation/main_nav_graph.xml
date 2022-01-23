@@ -16,7 +16,7 @@
     </fragment>
     <dialog
         android:id="@+id/unitsDialog"
-        android:name="fathian.ali.weatherapp.presentation.main.UnitsDialog"
+        android:name="fathian.ali.weatherapp.presentation.unit_dialog.UnitsDialog"
         android:label="UnitsDialog"
         tools:layout="@layout/dialog_units"/>
 

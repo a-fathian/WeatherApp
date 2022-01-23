@@ -5,4 +5,5 @@
     <dimen name="icon_size">130dp</dimen>
     <dimen name="item_icon_size">64dp</dimen>
     <dimen name="item_size">130dp</dimen>
+    <dimen name="cite_name_length">325dp</dimen>
 </resources>
