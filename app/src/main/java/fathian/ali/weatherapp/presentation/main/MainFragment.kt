@@ -1,9 +1,7 @@
 package fathian.ali.weatherapp.presentation.main
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import coil.load
@@ -15,7 +13,6 @@ import fathian.ali.weatherapp.databinding.FragmentMainBinding
 import fathian.ali.weatherapp.domain.entity.WeatherData
 import fathian.ali.weatherapp.domain.entity.WeatherItem
 import fathian.ali.weatherapp.presentation.BaseFragment
-import fathian.ali.weatherapp.util.safeNavigate
 import fathian.ali.weatherapp.util.showGone
 import kotlinx.coroutines.flow.collectLatest
 import java.text.SimpleDateFormat
@@ -71,7 +68,6 @@ class MainFragment : BaseFragment() {
 
     private fun setItems(weather: WeatherData): List<WeatherItem> {
         val unit = preference.getString("unit", "metric")
-        val unitSign = if (unit == "metric") "°C" else "°F"
         val windSpeed = if (unit == "metric") {
             getString(R.string.format_string, (weather.windSpeed * 3.6).toString(), " km/h")
         } else {
@@ -126,12 +122,8 @@ class MainFragment : BaseFragment() {
 
     override fun listeners() {
         binding.btnSearch.setOnClickListener {
-//            binding.feelsLikeText.visibility = View.INVISIBLE
             viewModel.getWeather(binding.etSearchCity.text.toString(),
                 preference.getString("unit", "imperial") ?: "imperial")
-        }
-        binding.btnUnits.setOnClickListener {
-            safeNavigate(R.id.action_mainFragment_to_unitsDialog)
         }
     }
 
