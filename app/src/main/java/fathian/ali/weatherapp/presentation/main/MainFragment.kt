@@ -118,19 +118,22 @@ class MainFragment : BaseFragment() {
 
     override fun listeners() {
         binding.btnSearch.setOnClickListener {
-            binding.etSearchCity.hideKeyboard()
-            viewModel.getWeather(binding.etSearchCity.text.toString())
+            searchForCity()
         }
         binding.etSearchCity.setOnKeyListener { _, keyCode, keyEvent ->
             if ((keyEvent.action == KeyEvent.ACTION_DOWN) &&
                 (keyCode == KeyEvent.KEYCODE_ENTER)
             ) {
-                binding.etSearchCity.hideKeyboard()
-                viewModel.getWeather(binding.etSearchCity.text.toString())
+                searchForCity()
                 return@setOnKeyListener true
             }
             return@setOnKeyListener false
         }
+    }
+
+    private fun searchForCity() {
+        binding.etSearchCity.hideKeyboard()
+        viewModel.getWeather(binding.etSearchCity.text.toString())
     }
 
     override fun onCreateView(
