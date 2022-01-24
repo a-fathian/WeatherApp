@@ -59,7 +59,7 @@ class MainFragment : BaseFragment(), UnitsDialog.OnUnitChangeListener {
                     binding.weatherDescription.text = weather.description
                     binding.feelsLikeText.visibility = View.VISIBLE
                     binding.recycler.adapter = MainAdapter()
-                    (binding.recycler.adapter as MainAdapter).setItems(setItems(weather))
+                    (binding.recycler.adapter as MainAdapter).setItems(getItems(weather))
                     binding.recycler.scheduleLayoutAnimation()
                 }
                 viewModel.resetState()
@@ -84,7 +84,7 @@ class MainFragment : BaseFragment(), UnitsDialog.OnUnitChangeListener {
         }
     }
 
-    private fun setItems(weather: WeatherData): List<WeatherItem> {
+    private fun getItems(weather: WeatherData): List<WeatherItem> {
         val wind = WeatherItem(
             R.drawable.wind,
             "Wind",
