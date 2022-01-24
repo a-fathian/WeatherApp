@@ -24,8 +24,10 @@ class UnitsDialog : DialogFragment() {
         super.onCreate(savedInstanceState)
         lifecycleScope.launchWhenStarted {
             viewModel.unitSet.collectLatest { set ->
-                if (set)
-                    dismiss()
+                if (set) {
+                    listener?.onUnitChanged()
+                    dismissAllowingStateLoss()
+                }
             }
         }
     }
@@ -46,5 +48,11 @@ class UnitsDialog : DialogFragment() {
         binding.dialogFahrenheit.setOnClickListener {
             viewModel.setUnit(Units.IMPERIAL)
         }
+    }
+
+    var listener: OnUnitChangeListener? = null
+
+    fun interface OnUnitChangeListener {
+        fun onUnitChanged()
     }
 }

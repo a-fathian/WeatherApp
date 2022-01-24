@@ -9,9 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import fathian.ali.weatherapp.R
 import fathian.ali.weatherapp.domain.entity.WeatherItem
 
-class MainAdapter(
-    private val items: List<WeatherItem>,
-) : RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
+class MainAdapter
+    : RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
+
+    private lateinit var items: List<WeatherItem>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         return MainViewHolder(LayoutInflater.from(parent.context)
@@ -42,5 +43,10 @@ class MainAdapter(
             name.text = item.name
             value.text = item.value
         }
+    }
+
+    fun setItems(items: List<WeatherItem>,) {
+        this.items = items
+        notifyDataSetChanged()
     }
 }

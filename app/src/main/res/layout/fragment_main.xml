@@ -3,151 +3,169 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/light_blue">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?android:actionBarSize"
+        android:background="@color/purple_500"
         app:layout_constraintTop_toTopOf="parent"
         app:title="@string/app_name"
-        android:background="@color/purple_700"
-        app:titleTextColor="@color/white"
-        />
+        app:titleTextColor="@color/white" />
 
-    <EditText
-        android:id="@+id/et_search_city"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="@string/city_name_hint"
-        android:imeOptions="actionGo"
-        android:inputType="text"
-        android:maxLines="1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar" />
-
-    <Button
-        android:id="@+id/btn_search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Go"
-        app:layout_constraintStart_toEndOf="@id/et_search_city"
-        app:layout_constraintTop_toTopOf="@id/et_search_city" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardview"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refresh"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/et_search_city">
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/iv_weather_icon"
-                android:layout_width="@dimen/icon_size"
-                android:layout_height="@dimen/icon_size"
-                app:layout_constraintBottom_toBottomOf="@id/weather_description"
-                app:layout_constraintEnd_toStartOf="@+id/tv_city_name"
-
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_city_name"
-                tools:srcCompat="@drawable/cloud" />
-
-            <TextView
-                android:id="@+id/tv_city_name"
+            <EditText
+                android:id="@+id/et_search_city"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:ellipsize="end"
-                android:maxWidth="@dimen/cite_name_length"
+                android:hint="@string/city_name_hint"
+                android:imeOptions="actionGo"
+                android:inputType="text"
                 android:maxLines="1"
-                android:textSize="@dimen/header1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/btn_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Search"
+                app:layout_constraintStart_toEndOf="@id/et_search_city"
+                app:layout_constraintTop_toTopOf="@id/et_search_city" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/light_blue"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_search_city">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_weather_icon"
+                        android:layout_width="@dimen/icon_size"
+                        android:layout_height="@dimen/icon_size"
+                        app:layout_constraintBottom_toBottomOf="@id/weather_description"
+                        app:layout_constraintEnd_toStartOf="@+id/tv_city_name"
+
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tv_city_name"
+                        tools:srcCompat="@drawable/cloud" />
+
+                    <TextView
+                        android:id="@+id/tv_city_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:ellipsize="end"
+                        android:maxWidth="@dimen/cite_name_length"
+                        android:maxLines="1"
+                        android:textSize="@dimen/header1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/iv_weather_icon"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="San Fransisco dfg dfg dfg dfg df gdf " />
+
+                    <TextView
+                        android:id="@+id/tv_temperature"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/header1"
+
+                        app:layout_constraintStart_toEndOf="@+id/tv_city_name"
+                        app:layout_constraintStart_toStartOf="@id/tv_city_name"
+                        app:layout_constraintTop_toBottomOf="@id/tv_country"
+                        tools:text="22" />
+
+                    <TextView
+                        android:id="@+id/feels_like_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/feels_like"
+                        android:textSize="@dimen/header2"
+                        android:visibility="invisible"
+                        app:layout_constraintStart_toEndOf="@+id/tv_temperature"
+                        app:layout_constraintStart_toStartOf="@id/tv_temperature"
+                        app:layout_constraintTop_toBottomOf="@id/tv_temperature"
+                        tools:visibility="visible" />
+
+                    <TextView
+                        android:id="@+id/tv_feels_like"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:textSize="@dimen/header2"
+                        app:layout_constraintBottom_toBottomOf="@id/feels_like_text"
+                        app:layout_constraintStart_toEndOf="@id/feels_like_text"
+                        tools:text="20" />
+
+                    <TextView
+                        android:id="@+id/weather_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/header2"
+                        app:layout_constraintStart_toStartOf="@id/feels_like_text"
+                        app:layout_constraintTop_toBottomOf="@id/feels_like_text"
+                        tools:text="weather description" />
+
+                    <TextView
+                        android:id="@+id/tv_country"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:textSize="@dimen/header1"
+                        android:visibility="gone"
+                        app:layout_constraintStart_toStartOf="@id/tv_city_name"
+                        app:layout_constraintTop_toBottomOf="@id/tv_city_name"
+                        tools:text="IR" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/iv_weather_icon"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="San Fransisco dfg dfg dfg dfg df gdf " />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardview">
 
-            <TextView
-                android:id="@+id/tv_temperature"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/header1"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layoutAnimation="@anim/layout_animation"
+                    android:overScrollMode="never"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:spanCount="4"
+                    tools:listitem="@layout/weather_item" />
 
-                app:layout_constraintStart_toEndOf="@+id/tv_city_name"
-                app:layout_constraintStart_toStartOf="@id/tv_city_name"
-                app:layout_constraintTop_toBottomOf="@id/tv_country"
-                tools:text="22" />
-
-            <TextView
-                android:id="@+id/feels_like_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/feels_like"
-                android:textSize="@dimen/header2"
-                android:visibility="invisible"
-                app:layout_constraintStart_toEndOf="@+id/tv_temperature"
-                app:layout_constraintStart_toStartOf="@id/tv_temperature"
-                app:layout_constraintTop_toBottomOf="@id/tv_temperature"
-                tools:visibility="visible" />
-
-            <TextView
-                android:id="@+id/tv_feels_like"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:textSize="@dimen/header2"
-                app:layout_constraintBottom_toBottomOf="@id/feels_like_text"
-                app:layout_constraintStart_toEndOf="@id/feels_like_text"
-                tools:text="20" />
-
-            <TextView
-                android:id="@+id/weather_description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/header2"
-                app:layout_constraintStart_toStartOf="@id/feels_like_text"
-                app:layout_constraintTop_toBottomOf="@id/feels_like_text"
-                tools:text="weather description" />
-
-            <TextView
-                android:id="@+id/tv_country"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:textSize="@dimen/header1"
-                android:visibility="gone"
-                app:layout_constraintStart_toStartOf="@id/tv_city_name"
-                app:layout_constraintTop_toBottomOf="@id/tv_city_name"
-                tools:text="IR" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardview">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="4"
-            tools:listitem="@layout/weather_item" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <include
         android:id="@+id/loading"

@@ -1,5 +1,6 @@
 package fathian.ali.weatherapp.presentation.main
 
+import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
@@ -13,15 +14,15 @@ import fathian.ali.weatherapp.databinding.FragmentMainBinding
 import fathian.ali.weatherapp.domain.entity.WeatherData
 import fathian.ali.weatherapp.domain.entity.WeatherItem
 import fathian.ali.weatherapp.presentation.BaseFragment
+import fathian.ali.weatherapp.presentation.unit_dialog.UnitsDialog
 import fathian.ali.weatherapp.util.hideKeyboard
-import fathian.ali.weatherapp.util.safeNavigate
 import fathian.ali.weatherapp.util.showGone
 import kotlinx.coroutines.flow.collectLatest
 import java.util.*
 
 
 @AndroidEntryPoint
-class MainFragment : BaseFragment() {
+class MainFragment : BaseFragment(), UnitsDialog.OnUnitChangeListener {
 
 
     private val viewModel: MainViewModel by viewModels()
@@ -34,9 +35,19 @@ class MainFragment : BaseFragment() {
         setHasOptionsMenu(true)
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        childFragmentManager.addFragmentOnAttachListener { fragmentManager, fragment ->
+            if (fragment is UnitsDialog) {
+                fragment.listener = this
+            }
+        }
+    }
+
     override fun observers() {
         lifecycleScope.launchWhenStarted {
             viewModel.weather.collectLatest { weather ->
+                binding.refresh.isRefreshing = false
                 if (weather != WeatherData.Default) {
                     binding.tvTemperature.text = weather.temp
                     binding.tvCityName.text =
@@ -47,8 +58,11 @@ class MainFragment : BaseFragment() {
                     }
                     binding.weatherDescription.text = weather.description
                     binding.feelsLikeText.visibility = View.VISIBLE
-                    binding.recycler.adapter = MainAdapter(setItems(weather))
+                    binding.recycler.adapter = MainAdapter()
+                    (binding.recycler.adapter as MainAdapter).setItems(setItems(weather))
+                    binding.recycler.scheduleLayoutAnimation()
                 }
+                viewModel.resetState()
             }
         }
 
@@ -60,6 +74,7 @@ class MainFragment : BaseFragment() {
 
         lifecycleScope.launchWhenStarted {
             viewModel.error.collectLatest { error ->
+                binding.refresh.isRefreshing = false
                 Snackbar.make(
                     view ?: return@collectLatest,
                     error,
@@ -129,11 +144,18 @@ class MainFragment : BaseFragment() {
             }
             return@setOnKeyListener false
         }
+        binding.refresh.setOnRefreshListener {
+            searchForCity()
+        }
     }
 
     private fun searchForCity() {
-        binding.etSearchCity.hideKeyboard()
-        viewModel.getWeather(binding.etSearchCity.text.toString())
+        if (binding.etSearchCity.text.isNotBlank()) {
+            binding.etSearchCity.hideKeyboard()
+            viewModel.getWeather(binding.etSearchCity.text.toString())
+        } else {
+            binding.refresh.isRefreshing = false
+        }
     }
 
     override fun onCreateView(
@@ -156,7 +178,7 @@ class MainFragment : BaseFragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.item_menu_units) {
-            safeNavigate(R.id.action_mainFragment_to_unitsDialog)
+            UnitsDialog().show(childFragmentManager, null)
             return true
         }
         return false
@@ -169,5 +191,10 @@ class MainFragment : BaseFragment() {
 
     override fun onBackPressed() {
         activity?.finish()
+    }
+
+    override fun onUnitChanged() {
+        if (binding.etSearchCity.text.isNotBlank())
+            viewModel.getWeather(binding.etSearchCity.text.toString())
     }
 }

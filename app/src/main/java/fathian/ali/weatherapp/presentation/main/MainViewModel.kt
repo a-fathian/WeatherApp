@@ -45,4 +45,8 @@ class MainViewModel @Inject constructor(
             }
         }
     }
+
+    fun resetState() {
+        _weather.value = WeatherData.Default
+    }
 }
